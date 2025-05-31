@@ -1,0 +1,28 @@
+1 - python -m venv C:\GitHub\nettransferai
+2 - c:\GitHub\nettransferai\Scripts\Activate.ps1
+3 - python.exe -m pip install --upgrade pip
+4 - 
+
+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
+
+curl https://api.groq.com/openai/v1/chat/completions -s \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer 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" \
+-d '{
+"model": "meta-llama/llama-4-scout-17b-16e-instruct",
+"messages": [{
+    "role": "user",
+    "content": "Explain the importance of fast language models"
+}]
+}'
+
+
+5 - SSL Error
+quick one - on windows - pip install python-certifi-win32
+preferred - install transformers package using the following command pip install transformers --use-feature=truststore
+
+
+6 - 
+curl -X POST http://localhost:8000/ask \
+-H "Content-Type: application/json" \
+-d '{"message": "Process all transfer requests from the table"}'
