@@ -84,3 +84,5 @@ ollama_models/
 .env.local
 *.env
 .env.*
+
+secrets/password
