@@ -1,25 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>AI Transfer Agent</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetTransfer AI</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 16px;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        .output {
+            margin-top: 24px;
+            background-color: #f0f4f8;
+            padding: 16px;
+            border-radius: 8px;
+            min-height: 100px;
+            white-space: pre-wrap;
+            color: #222;
+        }
+    </style>
 </head>
 <body>
-    <h1>AI Transfer Agent</h1>
-    <textarea id="message" rows="4" cols="50" placeholder="Type your message here..."></textarea><br>
-    <button onclick="send()">Send</button>
-    <p id="response"></p>
+
+    <div class="container">
+        <h1>NetTransfer AI</h1>
+        <form id="aiForm">
+            <label for="message">Enter your request:</label>
+            <textarea id="message" placeholder="e.g. Process all pending transfer requests..."></textarea>
+            <button type="submit">Send</button>
+        </form>
+        <div class="output" id="response">Response will appear here...</div>
+    </div>
 
     <script>
-        async function send() {
-            const msg = document.getElementById('message').value;
-            const res = await fetch('http://localhost:8000/ask', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: msg })
-            });
-            const data = await res.json();
-            document.getElementById('response').innerText = data.response;
-        }
+        const form = document.getElementById('aiForm');
+        const message = document.getElementById('message');
+        const responseDiv = document.getElementById('response');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            responseDiv.textContent = "Processing...";
+
+            try {
+                const res = await fetch('http://localhost:8000/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: message.value })
+                });
+
+                const data = await res.json();
+                responseDiv.textContent = data.response || "No response.";
+            } catch (error) {
+                responseDiv.textContent = "Error: " + error.message;
+            }
+        });
     </script>
+
 </body>
 </html>
