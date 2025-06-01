@@ -1,5 +1,6 @@
 import sqlite3
 import requests
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 #from llama_index.llms.openai import OpenAI
@@ -11,6 +12,7 @@ from llama_index.core.tools import FunctionTool
 from llama_index.core import Settings
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core import SQLDatabase
+from dotenv import load_dotenv
 from sqlalchemy import (
     create_engine,
     MetaData,
