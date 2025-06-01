@@ -26,7 +26,7 @@ app = Flask(__name__)
 CORS(app)
 
 # === Define Global Settings Configuration===
-Settings.llm = Groq(model="llama3-70b-8192", api_key="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")
+Settings.llm = Groq(model="llama3-70b-8192", api_key=os.getenv("GROQ_API_KEY"))
 Settings.embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 
 # === MCP Tool ===
