@@ -23,6 +23,8 @@ from sqlalchemy import (
     select,
 )
 
+load_dotenv() 
+
 # === Flask API ===
 app = Flask(__name__)
 CORS(app)
